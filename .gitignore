@@ -1,0 +1,14 @@
+.env
+*.env
+.venv/
+__pycache__/
+private/
+cache/
+*.log
+data/raw/
+scratch/
+.bak_*/
+# Per-response and per-item files list the exact wrong addresses each model gave.
+# They are kept private (see the paper's Dual-Use appendix); only aggregates are published.
+results/*responses*.csv
+results/*per_item*.csv

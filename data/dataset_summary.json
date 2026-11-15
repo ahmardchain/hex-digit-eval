@@ -1,0 +1,36 @@
+{
+ "coingecko_coins": 22238,
+ "ranked_coins": 5996,
+ "candidates_dropped_unranked": 4244,
+ "pool_by_stratum_tier": {
+  "base/extended": 743,
+  "base/strict": 195,
+  "rank1000plus/extended": 1187,
+  "rank1000plus/strict": 152,
+  "rank100_1000/extended": 184,
+  "rank100_1000/strict": 182,
+  "top100/extended": 16,
+  "top100/strict": 37
+ },
+ "items_by_stratum": {
+  "base": 60,
+  "rank1000plus": 100,
+  "rank100_1000": 100,
+  "top100": 53
+ },
+ "items_by_stratum_tier": {
+  "base/strict": 60,
+  "rank1000plus/strict": 100,
+  "rank100_1000/strict": 100,
+  "top100/extended": 16,
+  "top100/strict": 37
+ },
+ "items_shared_symbol": 122,
+ "address_universe_size": 30684,
+ "targets": {
+  "top100": 100,
+  "rank100_1000": 100,
+  "rank1000plus": 100,
+  "base": 60
+ }
+}

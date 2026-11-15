@@ -1,0 +1,7 @@
+model,invalid_format,same_token_other_chain,other_known_token,contract_code,used_eoa,never_used,n_wrong
+gemini-3.1-flash-lite,0,1,2,1,1,19,24
+gemma-4-31b,0,0,0,0,0,3,3
+gpt-oss-120b,2,0,0,0,0,1,3
+gpt-oss-20b,3,0,0,1,0,3,7
+qwen3.8-27b,0,1,1,0,0,8,10
+ALL,5,2,3,2,1,34,47

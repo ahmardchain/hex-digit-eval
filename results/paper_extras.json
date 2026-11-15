@@ -1,0 +1,192 @@
+{
+ "gemma-4-31b": {
+  "auroc_sc_minus_verbal": {
+   "value": 0.4296875,
+   "ci_lo": 0.32134486607142854,
+   "ci_hi": 0.5,
+   "n": 20
+  },
+  "n_correct": 4,
+  "n_wrong": 16,
+  "n_wrong_conf_ge90": 16,
+  "policy_conf_ge90": {
+   "n_answered": 20,
+   "n_trusted": 20,
+   "coverage": 1.0,
+   "accuracy_trusted": 0.2,
+   "n_wrong": 16,
+   "wrong_blocked_share": 0.0,
+   "correct_kept_share": 1.0
+  },
+  "policy_sc_eq1": {
+   "n_answered": 20,
+   "n_trusted": 4,
+   "coverage": 0.2,
+   "accuracy_trusted": 0.75,
+   "n_wrong": 16,
+   "wrong_blocked_share": 0.9375,
+   "correct_kept_share": 0.75
+  },
+  "policy_sc_eq1_and_eip55_not_invalid": {
+   "n_answered": 20,
+   "n_trusted": 4,
+   "coverage": 0.2,
+   "accuracy_trusted": 0.75,
+   "n_wrong": 16,
+   "wrong_blocked_share": 0.9375,
+   "correct_kept_share": 0.75
+  }
+ },
+ "gpt-oss-120b": {
+  "auroc_sc_minus_verbal": {
+   "value": 0.053014553014553045,
+   "ci_lo": -0.023915234679123595,
+   "ci_hi": 0.14850009257735344,
+   "n": 63
+  },
+  "n_correct": 26,
+  "n_wrong": 37,
+  "n_wrong_conf_ge90": 26,
+  "policy_conf_ge90": {
+   "n_answered": 63,
+   "n_trusted": 52,
+   "coverage": 0.8253968253968254,
+   "accuracy_trusted": 0.5,
+   "n_wrong": 37,
+   "wrong_blocked_share": 0.2972972972972973,
+   "correct_kept_share": 1.0
+  },
+  "policy_sc_eq1": {
+   "n_answered": 63,
+   "n_trusted": 12,
+   "coverage": 0.19047619047619047,
+   "accuracy_trusted": 0.9166666666666666,
+   "n_wrong": 37,
+   "wrong_blocked_share": 0.972972972972973,
+   "correct_kept_share": 0.4230769230769231
+  },
+  "policy_sc_eq1_and_eip55_not_invalid": {
+   "n_answered": 63,
+   "n_trusted": 10,
+   "coverage": 0.15873015873015872,
+   "accuracy_trusted": 0.9,
+   "n_wrong": 37,
+   "wrong_blocked_share": 0.972972972972973,
+   "correct_kept_share": 0.34615384615384615
+  }
+ },
+ "gpt-oss-20b": {
+  "auroc_sc_minus_verbal": {
+   "value": -0.021390374331550666,
+   "ci_lo": -0.14370723864258356,
+   "ci_hi": 0.07591683201058205,
+   "n": 96
+  },
+  "n_correct": 11,
+  "n_wrong": 85,
+  "n_wrong_conf_ge90": 64,
+  "policy_conf_ge90": {
+   "n_answered": 96,
+   "n_trusted": 75,
+   "coverage": 0.78125,
+   "accuracy_trusted": 0.14666666666666667,
+   "n_wrong": 85,
+   "wrong_blocked_share": 0.24705882352941178,
+   "correct_kept_share": 1.0
+  },
+  "policy_sc_eq1": {
+   "n_answered": 96,
+   "n_trusted": 5,
+   "coverage": 0.052083333333333336,
+   "accuracy_trusted": 1.0,
+   "n_wrong": 85,
+   "wrong_blocked_share": 1.0,
+   "correct_kept_share": 0.45454545454545453
+  },
+  "policy_sc_eq1_and_eip55_not_invalid": {
+   "n_answered": 96,
+   "n_trusted": 5,
+   "coverage": 0.052083333333333336,
+   "accuracy_trusted": 1.0,
+   "n_wrong": 85,
+   "wrong_blocked_share": 1.0,
+   "correct_kept_share": 0.45454545454545453
+  }
+ },
+ "qwen3.8-27b": {
+  "auroc_sc_minus_verbal": {
+   "value": 0.3717054263565891,
+   "ci_lo": 0.3089887640449438,
+   "ci_hi": 0.4257826160767336,
+   "n": 101
+  },
+  "n_correct": 15,
+  "n_wrong": 86,
+  "n_wrong_conf_ge90": 79,
+  "policy_conf_ge90": {
+   "n_answered": 101,
+   "n_trusted": 94,
+   "coverage": 0.9306930693069307,
+   "accuracy_trusted": 0.1595744680851064,
+   "n_wrong": 86,
+   "wrong_blocked_share": 0.08139534883720931,
+   "correct_kept_share": 1.0
+  },
+  "policy_sc_eq1": {
+   "n_answered": 101,
+   "n_trusted": 10,
+   "coverage": 0.09900990099009901,
+   "accuracy_trusted": 0.7,
+   "n_wrong": 86,
+   "wrong_blocked_share": 0.9651162790697675,
+   "correct_kept_share": 0.4666666666666667
+  },
+  "policy_sc_eq1_and_eip55_not_invalid": {
+   "n_answered": 101,
+   "n_trusted": 10,
+   "coverage": 0.09900990099009901,
+   "accuracy_trusted": 0.7,
+   "n_wrong": 86,
+   "wrong_blocked_share": 0.9651162790697675,
+   "correct_kept_share": 0.4666666666666667
+  }
+ },
+ "ALL": {
+  "auroc_sc_minus_verbal": {
+   "value": 0.22947225765306123,
+   "ci_lo": 0.1750260941425201,
+   "ci_hi": 0.28998718811154606,
+   "n": 280
+  },
+  "n_correct": 56,
+  "n_wrong": 224,
+  "n_wrong_conf_ge90": 185,
+  "policy_conf_ge90": {
+   "n_answered": 280,
+   "n_trusted": 241,
+   "coverage": 0.8607142857142858,
+   "accuracy_trusted": 0.23236514522821577,
+   "n_wrong": 224,
+   "wrong_blocked_share": 0.17410714285714285,
+   "correct_kept_share": 1.0
+  },
+  "policy_sc_eq1": {
+   "n_answered": 280,
+   "n_trusted": 31,
+   "coverage": 0.11071428571428571,
+   "accuracy_trusted": 0.8387096774193549,
+   "n_wrong": 224,
+   "wrong_blocked_share": 0.9776785714285714,
+   "correct_kept_share": 0.4642857142857143
+  },
+  "policy_sc_eq1_and_eip55_not_invalid": {
+   "n_answered": 280,
+   "n_trusted": 29,
+   "coverage": 0.10357142857142858,
+   "accuracy_trusted": 0.8275862068965517,
+   "n_wrong": 224,
+   "wrong_blocked_share": 0.9776785714285714,
+   "correct_kept_share": 0.42857142857142855
+  }
+ }
+}
