@@ -147,7 +147,7 @@ Across 259 tokens and four open-weight models, recalled contract addresses are c
 
 ## Code and Data
 
-- Code repository: available from the author on request (ahmardchain@gmail.com) — scripts, dataset builder, cached responses, aggregate results and figures (`./reproduce.sh`).
+- Code repository: https://github.com/ahmardchain/hex-digit-eval (raw per-response files withheld; see Dual-Use appendix) — scripts, dataset builder, cached responses, aggregate results and figures (`./reproduce.sh`).
 - Data: `data/items.csv` (tokens and gold addresses from public lists); aggregate results in `results/`. Per-token lists of wrong, confidently output contracts are withheld (Appendix A).
 
 All code, data and analysis in this report were created during the AI x Epistemics Research Sprint (13–15 November 2026).
