@@ -3,7 +3,7 @@
 <div class="authors"><div><b>Ahmardchain (Ahmad Aminu)</b><br>Usmanu Danfodiyo University, Gusau, Nigeria<br>ahmardchain@gmail.com</div><div><b>With</b><br>Apart Research</div></div>
 
 <div class="abstract"><b>Abstract</b><br>
-AI agents that hold wallets increasingly have to decide whether to trust a token contract address recalled from model memory or to look it up. One wrong hex digit sends funds somewhere irreversible. We built a cross-validated set of 313 ERC-20 tokens on Ethereum and Base, stratified by market-cap rank, and asked four free-tier open-weight models (gemma-4-31b, gpt-oss-120b, gpt-oss-20b, qwen3.8-27b) for each address with a 0–100 confidence, under three paraphrases and three T=1 resamples. On the 259 tokens all four models completed, pooled exact-match accuracy is 5.4% [3.5, 7.4] (95% token-bootstrap CI). Models abstain often (62.1%), but when they answer they are usually wrong (80.0%), and 82.6% of wrong answers carry confidence ≥ 90. Verbal confidence is a weak error detector (pooled AUROC 0.685 [0.618, 0.739]), barely above a market-cap-rank baseline (0.747 [0.626, 0.845]). Self-consistency across three resamples is much stronger (0.914 [0.857, 0.956]; paired difference 0.229 [0.175, 0.290]). Checking each wrong address on-chain, 173 of 224 (77.2%) point to never-used addresses where funds would be burned, and 25 point to a different known token. A rule that trusts only fully self-consistent answers blocks 97.8% of wrong answers but keeps only 46.4% of correct ones. The takeaway for agent builders: a model's stated confidence in a recalled address should never authorise a transfer; resolve addresses from a verified registry.
+AI agents that hold wallets increasingly have to decide whether to trust a token contract address recalled from model memory or to look it up. One wrong hex digit sends funds somewhere irreversible. We built a cross-validated set of 313 ERC-20 tokens on Ethereum and Base, stratified by market-cap rank, and asked four free-tier open-weight models (gemma-4-31b, gpt-oss-120b, gpt-oss-20b, qwen3.8-27b) for each address with a 0–100 confidence, under three paraphrases and three T=1 resamples. On the 313 tokens all four models completed, pooled exact-match accuracy is 5.2% [3.4, 7.0] (95% token-bootstrap CI). Models abstain often (62.8%), but when they answer they are usually wrong (80.5%), and 82.5% of wrong answers carry confidence ≥ 90. Verbal confidence is a weak error detector (pooled AUROC 0.701 [0.647, 0.748]), barely above a market-cap-rank baseline (0.744 [0.636, 0.830]). Self-consistency across three resamples is much stronger (0.919 [0.875, 0.957]; paired difference 0.218 [0.172, 0.271]). Checking each wrong address on-chain, 208 of 268 (77.6%) point to never-used addresses where funds would be burned, and 29 point to a different known token. A rule that trusts only fully self-consistent answers blocks 97.8% of wrong answers but keeps only 44.6% of correct ones. The takeaway for agent builders: a model's stated confidence in a recalled address should never authorise a transfer; resolve addresses from a verified registry.
 </div>
 
 ## 1. Introduction
@@ -40,47 +40,47 @@ Calibration metrics follow Guo et al. [2017] (ECE) and Brier [1950].
 
 **On-chain destinations.** Each wrong, answered greedy address is classified, via public RPC on its chain, as: invalid format; the same token's address on the other chain; another known token; some other contract; a used externally owned account (nonce or balance > 0); or a never-used address (no code, nonce 0, balance 0, so funds sent there are effectively burned).
 
-**Shared subset.** Free-tier quotas (and Google's unstable Gemma endpoint) prevented every model from finishing the full 1,878-call design before the deadline. Items were queried in a pre-registered, stratum-interleaved random order fixed from the dataset alone, so any prefix is an approximately stratified random sample. All headline metrics use the **same 259 tokens for every model**: the longest prefix of that order completed by all four models (284 tokens), minus 25 tokens where at least one call still failed with an API error. As a robustness check we also report the stricter original rule (stop each model's prefix at its 4th failed item), which gives 115 tokens (§4.5).
+**Shared subset.** Free-tier quotas (and Google's unstable Gemma endpoint) initially prevented every model from finishing the full 1,878-call design; the retry loop later completed it for all four retained models. Items were queried in a pre-registered, stratum-interleaved random order fixed from the dataset alone, so any prefix is an approximately stratified random sample. All headline metrics use the **same 313 tokens for every model**: the full 313-token design, with 0 tokens excluded: every call of every retained model succeeded. The stricter original rule (stop each model's prefix at its 4th failed item) therefore also yields 313 tokens (§4.5).
 
 ## 4. Results
 
-Table 0 gives coverage. The shared subset has 48 Eth. rank ≤100, 89 Eth. 101–1000, 82 Eth. >1000, 40 Base tokens (full design: 53, 100, 100, 60).
+Table 0 gives coverage. The shared subset has 53 Eth. rank ≤100, 100 Eth. 101–1000, 100 Eth. >1000, 60 Base tokens (full design: 53, 100, 100, 60).
 
-**Table 0.** Calls completed per model at the freeze (2026-11-15 22:43+01:00 WAT), and tokens used.
+**Table 0.** Calls completed per model at the final run (2026-11-16 03:05+01:00 WAT), and tokens used.
 
 | Model | successful calls on disk (of 1,878) | tokens with all 6 calls (of 313) | used in shared subset |
 |---|---|---|---|
-| gemma-4-31b | 1,843 | 283 | 259 |
-| gpt-oss-120b | 1,878 | 313 | 259 |
-| gpt-oss-20b | 1,705 | 284 | 259 |
-| qwen3.8-27b | 1,878 | 313 | 259 |
+| gemma-4-31b | 1,878 | 313 | 313 |
+| gpt-oss-120b | 1,878 | 313 | 313 |
+| gpt-oss-20b | 1,878 | 313 | 313 |
+| qwen3.8-27b | 1,878 | 313 | 313 |
 | gemini-3.1-flash-lite | 363 (dropped) | — | not reported |
 
 ### 4.1 Accuracy and calibration
 
-**Table 1.** Headline metrics on the shared subset (n = 259 tokens per model). Brackets: 95% token-bootstrap CI. "Answered" n is the number of committed addresses used for accuracy (answered), confident-wrong, ECE and Brier.
+**Table 1.** Headline metrics on the shared subset (n = 313 tokens per model). Brackets: 95% token-bootstrap CI. "Answered" n is the number of committed addresses used for accuracy (answered), confident-wrong, ECE and Brier.
 
 | Model | n tokens | answered | abstained | accuracy (all) | accuracy (answered) | confident-wrong (conf≥90, of answered) | ECE | Brier |
 |---|---|---|---|---|---|---|---|---|
-| gemma-4-31b | 259 | 7.7% (n=20) | 59.5% | 1.5% [0.4, 3.1] | 20.0% [5.0, 40.0] | 80.0% [60.0, 95.0] | 0.797 [0.600, 0.950] | 0.795 [0.600, 0.950] |
-| gpt-oss-120b | 259 | 24.3% (n=63) | 75.3% | 10.0% [6.6, 13.9] | 41.3% [30.2, 54.0] | 41.3% [28.6, 52.4] | 0.510 [0.389, 0.622] | 0.472 [0.368, 0.571] |
-| gpt-oss-20b | 259 | 37.1% (n=96) | 52.5% | 4.2% [1.9, 6.6] | 11.5% [5.2, 18.8] | 66.7% [58.3, 76.0] | 0.792 [0.728, 0.848] | 0.713 [0.655, 0.768] |
-| qwen3.8-27b | 259 | 39.0% (n=101) | 61.0% | 5.8% [3.1, 8.5] | 14.9% [8.9, 21.8] | 78.2% [70.3, 86.1] | 0.778 [0.699, 0.856] | 0.773 [0.696, 0.851] |
-| **pooled** | 1036 | 27.0% (n=280) | 62.1% | 5.4% [3.5, 7.4] | 20.0% [13.6, 26.7] | 66.1% [59.7, 72.5] | 0.724 [0.662, 0.784] | 0.686 [0.627, 0.745] |
+| gemma-4-31b | 313 | 7.0% (n=22) | 60.1% | 1.3% [0.3, 2.6] | 18.2% [4.5, 36.4] | 81.8% [63.6, 95.5] | 0.816 [0.636, 0.955] | 0.814 [0.636, 0.955] |
+| gpt-oss-120b | 313 | 23.6% (n=74) | 76.0% | 9.6% [6.7, 12.8] | 40.5% [29.7, 51.4] | 43.2% [32.4, 54.1] | 0.523 [0.424, 0.627] | 0.484 [0.398, 0.578] |
+| gpt-oss-20b | 313 | 37.4% (n=117) | 53.4% | 4.5% [2.2, 6.7] | 12.0% [6.0, 17.9] | 65.8% [57.3, 74.4] | 0.785 [0.732, 0.839] | 0.705 [0.653, 0.757] |
+| qwen3.8-27b | 313 | 38.3% (n=120) | 61.7% | 5.4% [3.2, 8.0] | 14.2% [8.3, 20.8] | 78.3% [70.8, 85.0] | 0.778 [0.704, 0.846] | 0.774 [0.699, 0.842] |
+| **pooled** | 1252 | 26.6% (n=333) | 62.8% | 5.2% [3.4, 7.0] | 19.5% [13.4, 25.4] | 66.4% [60.7, 72.4] | 0.726 [0.667, 0.785] | 0.688 [0.633, 0.744] |
 
-*Observation.* Recall is poor: pooled accuracy is 5.4% [3.5, 7.4], and even the best model, gpt-oss-120b, recalls 10.0% [6.6, 13.9] of addresses. Models abstain on most tokens, which is the safe behaviour, but when they do answer they are wrong 80.0% of the time, and 185 of 224 wrong answers (82.6%) come with confidence ≥ 90. ECE ranges from 0.510 to 0.797; Figure 1 shows almost every answer sits at stated confidence 0.8–1.0 while accuracy stays far below the diagonal. gemma-4-31b answered only 20 of 259 tokens: in 32.8% of cases its visible thinking looped (for example repeating a guessed address with runs of identical digits) until the 1500-token cap, which we count as a non-answer, so its per-answer metrics have wide CIs.
+*Observation.* Recall is poor: pooled accuracy is 5.2% [3.4, 7.0], and even the best model, gpt-oss-120b, recalls 9.6% [6.7, 12.8] of addresses. Models abstain on most tokens, which is the safe behaviour, but when they do answer they are wrong 80.5% of the time, and 221 of 268 wrong answers (82.5%) come with confidence ≥ 90. ECE ranges from 0.523 to 0.816; Figure 1 shows almost every answer sits at stated confidence 0.8–1.0 while accuracy stays far below the diagonal. gemma-4-31b answered only 22 of 313 tokens: in 32.9% of cases its visible thinking looped (for example repeating a guessed address with runs of identical digits) until the 1500-token cap, which we count as a non-answer, so its per-answer metrics have wide CIs.
 
 <figure><img src="../figures/paper_reliability.png" style="width:52%"><figcaption><b>Figure 1.</b> Reliability diagram for the greedy answer (paraphrase 0) on the shared subset, one line per model. The dashed diagonal is perfect calibration; every model is far below it at high stated confidence.</figcaption></figure>
 
 **Table 2.** Exact-match accuracy by popularity stratum (shared subset; per-stratum n tokens in header).
 
-| Model | Eth. rank ≤100 (n=48) | Eth. 101–1000 (n=89) | Eth. >1000 (n=82) | Base (n=40) |
+| Model | Eth. rank ≤100 (n=53) | Eth. 101–1000 (n=100) | Eth. >1000 (n=100) | Base (n=60) |
 |---|---|---|---|---|
-| gemma-4-31b | 8.3% | 0.0% | 0.0% | 0.0% |
-| gpt-oss-120b | 25.0% | 5.6% | 11.0% | 0.0% |
-| gpt-oss-20b | 16.7% | 2.2% | 1.2% | 0.0% |
-| qwen3.8-27b | 18.8% | 5.6% | 1.2% | 0.0% |
-| **pooled** | 17.2% | 3.4% | 3.4% | 0.0% |
+| gemma-4-31b | 7.5% | 0.0% | 0.0% | 0.0% |
+| gpt-oss-120b | 22.6% | 9.0% | 9.0% | 0.0% |
+| gpt-oss-20b | 15.1% | 5.0% | 1.0% | 0.0% |
+| qwen3.8-27b | 17.0% | 7.0% | 1.0% | 0.0% |
+| **pooled** | 15.6% | 5.2% | 2.8% | 0.0% |
 
 Accuracy is highest for top-100 Ethereum tokens and near zero below that, and no model recalled a single Base address correctly, consistent with long-tail findings [Mallen et al., 2023; Kandpal et al., 2023]. Prompt wording matters little: the pooled max–min accuracy spread across the three paraphrases is 0.006.
 
@@ -90,28 +90,28 @@ Accuracy is highest for top-100 Ethereum tokens and near zero below that, and no
 
 | Signal | gpt-oss-120b | gpt-oss-20b | qwen3.8-27b | pooled |
 |---|---|---|---|---|
-| Verbal confidence | 0.808 [0.689, 0.903] | 0.920 [0.870, 0.961] | 0.593 [0.554, 0.634] | 0.685 [0.618, 0.739] (n=280) |
-| Self-consistency (3 × T=1) | 0.861 [0.757, 0.945] | 0.898 [0.766, 0.998] | 0.965 [0.930, 0.990] | 0.914 [0.857, 0.956] (n=280) |
-| EIP-55 checksum (mixed-case only) | 0.742 [0.563, 0.889] | 0.545 [0.342, 0.733] | 0.958 [0.904, 1.000] | 0.803 [0.719, 0.881] (n=112) |
-| Combined, CV logistic | 0.887 [0.785, 0.963] | 0.891 [0.679, 0.997] | 0.983 [0.959, 1.000] | 0.940 [0.899, 0.973] (n=280) |
-| Baseline: market-cap rank only | 0.639 [0.490, 0.787] | 0.855 [0.697, 0.982] | 0.821 [0.701, 0.922] | 0.747 [0.626, 0.845] (n=280) |
-| Combined + rank, CV logistic | 0.844 [0.725, 0.943] | 0.913 [0.815, 0.992] | 0.981 [0.954, 1.000] | 0.933 [0.886, 0.968] (n=280) |
+| Verbal confidence | 0.818 [0.713, 0.903] | 0.920 [0.882, 0.955] | 0.602 [0.567, 0.640] | 0.701 [0.647, 0.748] (n=333) |
+| Self-consistency (3 × T=1) | 0.857 [0.763, 0.937] | 0.915 [0.800, 0.995] | 0.963 [0.929, 0.990] | 0.919 [0.875, 0.957] (n=333) |
+| EIP-55 checksum (mixed-case only) | 0.703 [0.536, 0.850] | 0.585 [0.405, 0.758] | 0.964 [0.917, 1.000] | 0.814 [0.735, 0.884] (n=132) |
+| Combined, CV logistic | 0.872 [0.779, 0.948] | 0.916 [0.762, 0.997] | 0.984 [0.958, 1.000] | 0.945 [0.910, 0.973] (n=333) |
+| Baseline: market-cap rank only | 0.669 [0.523, 0.806] | 0.838 [0.692, 0.944] | 0.794 [0.662, 0.907] | 0.744 [0.636, 0.830] (n=333) |
+| Combined + rank, CV logistic | 0.848 [0.737, 0.938] | 0.934 [0.859, 0.988] | 0.984 [0.962, 1.000] | 0.940 [0.909, 0.966] (n=333) |
 
 <figure><img src="../figures/paper_auroc.png" style="width:88%"><figcaption><b>Figure 2.</b> AUROC of each error-detection signal per model, with 95% token-bootstrap CIs; dashed line = chance (always-trust). gemma-4-31b has too few correct answers to score. Self-consistency is high for every model; verbal confidence varies widely and is near chance for qwen3.8-27b.</figcaption></figure>
 
-*Observation.* Self-consistency beats verbal confidence pooled (paired difference 0.229 [0.175, 0.290], n = 280 answers) and most clearly for qwen3.8-27b (0.372 [0.309, 0.426]), whose stated confidence is near-constant. For the two gpt-oss models the difference is not significant (0.053 [-0.024, 0.149] and -0.021 [-0.144, 0.076]): their verbal confidence is informative. The popularity-only baseline is competitive with verbal confidence (0.747 [0.626, 0.845] pooled), so verbal confidence mostly re-encodes "is this a famous token". The EIP-55 checksum, when the model emits mixed case, is informative for qwen3.8-27b but not for gpt-oss-20b. As a reference, random mixed-case strings pass EIP-55 at rate 0.00000 (50k simulated) and a single case flip of a true address at 0.00000, so a valid checksum on a wrong address means the model memorised a real checksummed address, just the wrong one.
+*Observation.* Self-consistency beats verbal confidence pooled (paired difference 0.218 [0.172, 0.271], n = 333 answers) and most clearly for qwen3.8-27b (0.362 [0.303, 0.412]), whose stated confidence is near-constant. For the two gpt-oss models the difference is not significant (0.039 [-0.033, 0.119] and -0.005 [-0.113, 0.076]): their verbal confidence is informative. The popularity-only baseline is competitive with verbal confidence (0.744 [0.636, 0.830] pooled), so verbal confidence mostly re-encodes "is this a famous token". The EIP-55 checksum, when the model emits mixed case, is informative for qwen3.8-27b but not for gpt-oss-20b. As a reference, random mixed-case strings pass EIP-55 at rate 0.00000 (50k simulated) and a single case flip of a true address at 0.00000, so a valid checksum on a wrong address means the model memorised a real checksummed address, just the wrong one.
 
 ### 4.3 What would a trust rule do?
 
-**Table 4.** Simple gating rules on the 280 answered greedy addresses (pooled over models, shared subset).
+**Table 4.** Simple gating rules on the 333 answered greedy addresses (pooled over models, shared subset).
 
 | Trust rule (on answered greedy addresses) | trusted | accuracy when trusted | wrong answers blocked | correct answers kept |
 |---|---|---|---|---|
-| Trust if stated confidence ≥ 90 | 241/280 (86.1%) | 23.2% | 17.4% of 224 | 100.0% of 56 |
-| Trust only if all 3 T=1 samples repeat the greedy address | 31/280 (11.1%) | 83.9% | 97.8% of 224 | 46.4% of 56 |
-| … and EIP-55 checksum not failed | 29/280 (10.4%) | 82.8% | 97.8% of 224 | 42.9% of 56 |
+| Trust if stated confidence ≥ 90 | 286/333 (85.9%) | 22.7% | 17.5% of 268 | 100.0% of 65 |
+| Trust only if all 3 T=1 samples repeat the greedy address | 35/333 (10.5%) | 82.9% | 97.8% of 268 | 44.6% of 65 |
+| … and EIP-55 checksum not failed | 33/333 (9.9%) | 81.8% | 97.8% of 268 | 41.5% of 65 |
 
-Gating on stated confidence ≥ 90 passes 86.1% of answers and blocks only 17.4% of wrong ones. Requiring all three resamples to agree blocks 97.8% of wrong answers, but those trusted are still only 83.9% accurate (31 answers), which is not safe enough for an irreversible transfer.
+Gating on stated confidence ≥ 90 passes 85.9% of answers and blocks only 17.5% of wrong ones. Requiring all three resamples to agree blocks 97.8% of wrong answers, but those trusted are still only 82.9% accurate (35 answers), which is not safe enough for an irreversible transfer.
 
 ### 4.4 Where would the money go?
 
@@ -119,31 +119,31 @@ Gating on stated confidence ≥ 90 passes 86.1% of answers and blocks only 17.4%
 
 | Model | same token other chain | other known token | contract code | used eoa | never used | invalid format | n wrong |
 |---|---|---|---|---|---|---|---|
-| gemma-4-31b | 1 | 1 | 1 | 0 | 13 | 0 | 16 |
-| gpt-oss-120b | 0 | 13 | 2 | 0 | 14 | 8 | 37 |
-| gpt-oss-20b | 0 | 5 | 3 | 1 | 69 | 7 | 85 |
-| qwen3.8-27b | 2 | 6 | 0 | 1 | 77 | 0 | 86 |
-| **pooled** | 3 | 25 | 6 | 2 | 173 | 15 | 224 |
+| gemma-4-31b | 1 | 1 | 1 | 0 | 15 | 0 | 18 |
+| gpt-oss-120b | 2 | 14 | 2 | 0 | 16 | 10 | 44 |
+| gpt-oss-20b | 0 | 5 | 3 | 1 | 87 | 7 | 103 |
+| qwen3.8-27b | 2 | 9 | 0 | 2 | 90 | 0 | 103 |
+| **pooled** | 5 | 29 | 6 | 3 | 208 | 17 | 268 |
 
 <figure><img src="../figures/paper_destinations.png" style="width:62%"><figcaption><b>Figure 3.</b> Share of wrong answers by on-chain destination, per model. "never used" = no code, nonce 0, zero balance: funds sent there are effectively burned.</figcaption></figure>
 
-173 of 224 wrong answers (77.2%) are never-used addresses, so the dominant failure is a plausible-looking fabricated address that burns funds. 25 (11.2%) are the address of a *different* known token, the case where an attacker or a look-alike token could profit, and 15 are not valid 40-hex addresses at all (a cheap format check catches these).
+208 of 268 wrong answers (77.6%) are never-used addresses, so the dominant failure is a plausible-looking fabricated address that burns funds. 29 (10.8%) are the address of a *different* known token, the case where an attacker or a look-alike token could profit, and 17 are not valid 40-hex addresses at all (a cheap format check catches these).
 
 ### 4.5 Robustness
 
-With the stricter original subset rule (115 tokens), conclusions are unchanged: pooled accuracy 4.8% [2.4, 7.8], wrong answers with confidence ≥ 90 87.5%, AUROC verbal confidence 0.640 [0.522, 0.730] vs self-consistency 0.949 [0.887, 0.990] (paired difference 0.310 [0.227, 0.417]). Results are also stable across the three paraphrases (§4.1).
+Under the stricter original subset rule the subset is the same 313 tokens (all calls completed), so the results are identical: pooled accuracy 5.2% [3.4, 7.0], wrong answers with confidence ≥ 90 82.5%, AUROC verbal confidence 0.701 [0.647, 0.748] vs self-consistency 0.919 [0.875, 0.957] (paired difference 0.218 [0.172, 0.271]). Results are also stable across the three paraphrases (§4.1).
 
 ## 5. Discussion and Limitations
 
-**Implications for AI safety and agent design.** In this domain models usually *do* sense that they do not know, since they abstain on 62.1% of tokens, but the confidence they attach to the answers they do give is close to useless as a safety gate: most errors arrive at confidence ≥ 90, and stated confidence adds little over knowing the token's popularity. Black-box self-consistency is a much better detector, at the cost of extra calls, but even fully consistent answers were wrong about one time in six. For irreversible actions the right design is not better calibration but a different epistemic source: resolve addresses from a verified token list or registry, and treat the model's recall only as a search key. The same argument likely applies to other exact, high-stakes identifiers agents recall (IBANs, package names [Spracklen et al., 2025], API endpoints).
+**Implications for AI safety and agent design.** In this domain models usually *do* sense that they do not know, since they abstain on 62.8% of tokens, but the confidence they attach to the answers they do give is close to useless as a safety gate: most errors arrive at confidence ≥ 90, and stated confidence adds little over knowing the token's popularity. Black-box self-consistency is a much better detector, at the cost of extra calls, but even fully consistent answers were wrong about one time in six. For irreversible actions the right design is not better calibration but a different epistemic source: resolve addresses from a verified token list or registry, and treat the model's recall only as a search key. The same argument likely applies to other exact, high-stakes identifiers agents recall (IBANs, package names [Spracklen et al., 2025], API endpoints).
 
-**Limitations.** Partial coverage: headline metrics use 259 of 313 tokens shared by all models (Table 0); the subset is a pre-registered stratified prefix, but the tolerance for failed calls was relaxed after an earlier draft (§4.5 shows the stricter rule gives the same conclusions). Only four free-tier open-weight models were tested; frontier proprietary models and retrieval-augmented agents may behave differently. Gemini was dropped (only 363 of 1,878 calls fit its free quota) and is not reported. Few correct answers make per-model AUROC CIs wide and rule out AUROC for gemma-4-31b. Gemma's truncated thinking loops are counted as non-answers; a larger token cap might change its answer rate. Ground truth relies on agreement across public token lists and could contain rare errors. See Appendix A for ethics.
+**Limitations.** Coverage: headline metrics use all 313 of 313 tokens for the four retained models (Table 0); Gemini was excluded (below). Only four free-tier open-weight models were tested; frontier proprietary models and retrieval-augmented agents may behave differently. Gemini was dropped (only 363 of 1,878 calls fit its free quota) and is not reported. Few correct answers make per-model AUROC CIs wide and rule out AUROC for gemma-4-31b. Gemma's truncated thinking loops are counted as non-answers; a larger token cap might change its answer rate. Ground truth relies on agreement across public token lists and could contain rare errors. See Appendix A for ethics.
 
 **Future work.** Test frontier and tool-using agents, measure whether giving models the EIP-55 rule or a lookup tool changes behaviour, extend to other chains and identifier types, and evaluate cost-aware policies that decide when a lookup is worth it.
 
 ## 6. Conclusion
 
-Across 259 tokens and four open-weight models, recalled contract addresses are correct only 5.4% of the time, and when models commit to an answer, the majority of errors come with confidence ≥ 90 and most would burn funds. Self-consistency detects errors far better than stated confidence, but no internal signal makes a recalled address safe to pay. Agents should look addresses up.
+Across 313 tokens and four open-weight models, recalled contract addresses are correct only 5.2% of the time, and when models commit to an answer, the majority of errors come with confidence ≥ 90 and most would burn funds. Self-consistency detects errors far better than stated confidence, but no internal signal makes a recalled address safe to pay. Agents should look addresses up.
 
 ## Code and Data
 
@@ -171,7 +171,7 @@ All code, data and analysis in this report were created during the AI x Epistemi
 
 ## Appendix A. Limitations and Dual-Use / Ethical Considerations
 
-**Partial coverage, stated plainly.** The full design is 313 tokens × 6 calls = 1,878 calls per model. At the freeze, successful calls on disk were: gemma-4-31b 1,843, gpt-oss-120b 1,878, gpt-oss-20b 1,705, qwen3.8-27b 1,878 (Table 0). Every reported metric uses the same 259-token shared subset (82.7% of the design); 25 tokens inside the shared prefix were excluded because at least one call (all gemma-4-31b, Google endpoint HTTP 500/503 or 120-s timeouts) had not succeeded. If those failures correlate with difficulty, gemma's metrics could be slightly optimistic. gemini-3.1-flash-lite was dropped after 363/1,878 calls because of its free-tier daily cap; its cached data are not reported anywhere.
+**Coverage, stated plainly.** The full design is 313 tokens × 6 calls = 1,878 calls per model. Successful calls on disk at the final run were: gemma-4-31b 1,878, gpt-oss-120b 1,878, gpt-oss-20b 1,878, qwen3.8-27b 1,878 (Table 0), so every reported metric uses all 313 tokens (100.0% of the design) with no exclusions. gemini-3.1-flash-lite was dropped after 363/1,878 calls because of its free-tier daily cap; its cached data are not reported anywhere.
 
 **Free-tier models only.** The project had a $0 budget; the code refuses any non-free model. Results describe these four open-weight models through these providers on 13–15 November 2026, not frontier proprietary models.
 

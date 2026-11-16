@@ -1,6 +1,6 @@
 model,invalid_format,same_token_other_chain,other_known_token,contract_code,used_eoa,never_used,n_wrong
-gemma-4-31b,0,1,0,1,0,7,9
-gpt-oss-120b,5,0,3,0,0,6,14
-gpt-oss-20b,6,0,1,1,0,31,39
-qwen3.8-27b,0,2,4,0,0,36,42
-ALL,11,3,8,2,0,80,104
+gemma-4-31b,0,1,1,1,0,15,18
+gpt-oss-120b,10,2,14,2,0,16,44
+gpt-oss-20b,7,0,5,3,1,87,103
+qwen3.8-27b,0,2,9,0,2,90,103
+ALL,17,5,29,6,3,208,268

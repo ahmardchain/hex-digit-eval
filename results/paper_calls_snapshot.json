@@ -1,8 +1,8 @@
 {
  "gemma-4-31b": {
-  "rows_on_disk": 1870,
-  "error_rows": 27,
-  "ok_calls": 1843,
+  "rows_on_disk": 1878,
+  "error_rows": 0,
+  "ok_calls": 1878,
   "design_calls": 1878
  },
  "gpt-oss-120b": {
@@ -12,9 +12,9 @@
   "design_calls": 1878
  },
  "gpt-oss-20b": {
-  "rows_on_disk": 1705,
+  "rows_on_disk": 1878,
   "error_rows": 0,
-  "ok_calls": 1705,
+  "ok_calls": 1878,
   "design_calls": 1878
  },
  "qwen3.8-27b": {
@@ -23,7 +23,7 @@
   "ok_calls": 1878,
   "design_calls": 1878
  },
- "_snapshot_time": "2026-11-15T22:43+01:00",
+ "_snapshot_time": "2026-11-16T03:05+01:00",
  "gemini-3.1-flash-lite": {
   "note": "dropped; 363/1878 done, not reported"
  }

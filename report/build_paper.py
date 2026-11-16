@@ -114,13 +114,13 @@ Calibration metrics follow Guo et al. [2017] (ECE) and Brier [1950].
 
 **On-chain destinations.** Each wrong, answered greedy address is classified, via public RPC on its chain, as: invalid format; the same token's address on the other chain; another known token; some other contract; a used externally owned account (nonce or balance > 0); or a never-used address (no code, nonce 0, balance 0, so funds sent there are effectively burned).
 
-**Shared subset.** Free-tier quotas (and Google's unstable Gemma endpoint) prevented every model from finishing the full 1,878-call design before the deadline. Items were queried in a pre-registered, stratum-interleaved random order fixed from the dataset alone, so any prefix is an approximately stratified random sample. All headline metrics use the **same {n_sh} tokens for every model**: the longest prefix of that order completed by all four models ({SS['priority_prefix_K']} tokens), minus {len(SS['excluded_in_prefix_failed_calls'])} tokens where at least one call still failed with an API error. As a robustness check we also report the stricter original rule (stop each model's prefix at its 4th failed item), which gives {S3['n_shared_items']} tokens (§4.5).
+**Shared subset.** Free-tier quotas (and Google's unstable Gemma endpoint) initially prevented every model from finishing the full 1,878-call design; the retry loop later completed it for all four retained models. Items were queried in a pre-registered, stratum-interleaved random order fixed from the dataset alone, so any prefix is an approximately stratified random sample. All headline metrics use the **same {n_sh} tokens for every model**: the full {SS['priority_prefix_K']}-token design, with {len(SS['excluded_in_prefix_failed_calls'])} tokens excluded: every call of every retained model succeeded. The stricter original rule (stop each model's prefix at its 4th failed item) therefore also yields {S3['n_shared_items']} tokens (§4.5).
 
 ## 4. Results
 
 Table 0 gives coverage. The shared subset has {', '.join(f"{SS['shared_items_by_stratum'][s]} {lab_st[s]}" for s in order)} tokens (full design: {', '.join(f"{SS['full_items_by_stratum'][s]}" for s in order)}).
 
-**Table 0.** Calls completed per model at the freeze ({CALLS['_snapshot_time'].replace('T',' ')} WAT), and tokens used.
+**Table 0.** Calls completed per model at the final run ({CALLS['_snapshot_time'].replace('T',' ')} WAT), and tokens used.
 
 {chr(10).join(tc)}
 
@@ -170,13 +170,13 @@ Gating on stated confidence ≥ 90 passes {p(pol_cf['coverage'])} of answers and
 
 ### 4.5 Robustness
 
-With the stricter original subset rule ({S3['n_shared_items']} tokens), conclusions are unchanged: pooled accuracy {ci(M3['ALL']['accuracy_all'], True)}, wrong answers with confidence ≥ 90 {p(M3['ALL']['share_wrong_with_conf>=90'])}, AUROC verbal confidence {ci(M3['ALL']['auroc']['verbal_confidence'])} vs self-consistency {ci(M3['ALL']['auroc']['self_consistency'])} (paired difference {ci(X3['ALL']['auroc_sc_minus_verbal'])}). Results are also stable across the three paraphrases (§4.1).
+Under the stricter original subset rule the subset is the same {S3['n_shared_items']} tokens (all calls completed), so the results are identical: pooled accuracy {ci(M3['ALL']['accuracy_all'], True)}, wrong answers with confidence ≥ 90 {p(M3['ALL']['share_wrong_with_conf>=90'])}, AUROC verbal confidence {ci(M3['ALL']['auroc']['verbal_confidence'])} vs self-consistency {ci(M3['ALL']['auroc']['self_consistency'])} (paired difference {ci(X3['ALL']['auroc_sc_minus_verbal'])}). Results are also stable across the three paraphrases (§4.1).
 
 ## 5. Discussion and Limitations
 
 **Implications for AI safety and agent design.** In this domain models usually *do* sense that they do not know, since they abstain on {p(A['abstain_rate'])} of tokens, but the confidence they attach to the answers they do give is close to useless as a safety gate: most errors arrive at confidence ≥ 90, and stated confidence adds little over knowing the token's popularity. Black-box self-consistency is a much better detector, at the cost of extra calls, but even fully consistent answers were wrong about one time in six. For irreversible actions the right design is not better calibration but a different epistemic source: resolve addresses from a verified token list or registry, and treat the model's recall only as a search key. The same argument likely applies to other exact, high-stakes identifiers agents recall (IBANs, package names [Spracklen et al., 2025], API endpoints).
 
-**Limitations.** Partial coverage: headline metrics use {n_sh} of {n_full} tokens shared by all models (Table 0); the subset is a pre-registered stratified prefix, but the tolerance for failed calls was relaxed after an earlier draft (§4.5 shows the stricter rule gives the same conclusions). Only four free-tier open-weight models were tested; frontier proprietary models and retrieval-augmented agents may behave differently. Gemini was dropped (only 363 of 1,878 calls fit its free quota) and is not reported. Few correct answers make per-model AUROC CIs wide and rule out AUROC for gemma-4-31b. Gemma's truncated thinking loops are counted as non-answers; a larger token cap might change its answer rate. Ground truth relies on agreement across public token lists and could contain rare errors. See Appendix A for ethics.
+**Limitations.** Coverage: headline metrics use all {n_sh} of {n_full} tokens for the four retained models (Table 0); Gemini was excluded (below). Only four free-tier open-weight models were tested; frontier proprietary models and retrieval-augmented agents may behave differently. Gemini was dropped (only 363 of 1,878 calls fit its free quota) and is not reported. Few correct answers make per-model AUROC CIs wide and rule out AUROC for gemma-4-31b. Gemma's truncated thinking loops are counted as non-answers; a larger token cap might change its answer rate. Ground truth relies on agreement across public token lists and could contain rare errors. See Appendix A for ethics.
 
 **Future work.** Test frontier and tool-using agents, measure whether giving models the EIP-55 rule or a lookup tool changes behaviour, extend to other chains and identifier types, and evaluate cost-aware policies that decide when a lookup is worth it.
 
@@ -210,7 +210,7 @@ All code, data and analysis in this report were created during the AI x Epistemi
 
 ## Appendix A. Limitations and Dual-Use / Ethical Considerations
 
-**Partial coverage, stated plainly.** The full design is {n_full} tokens × 6 calls = 1,878 calls per model. At the freeze, successful calls on disk were: {', '.join(f"{m} {CALLS[m]['ok_calls']:,}" for m in MODELS)} (Table 0). Every reported metric uses the same {n_sh}-token shared subset ({p(n_sh/n_full)} of the design); {len(SS['excluded_in_prefix_failed_calls'])} tokens inside the shared prefix were excluded because at least one call (all gemma-4-31b, Google endpoint HTTP 500/503 or 120-s timeouts) had not succeeded. If those failures correlate with difficulty, gemma's metrics could be slightly optimistic. gemini-3.1-flash-lite was dropped after 363/1,878 calls because of its free-tier daily cap; its cached data are not reported anywhere.
+**Coverage, stated plainly.** The full design is {n_full} tokens × 6 calls = 1,878 calls per model. Successful calls on disk at the final run were: {', '.join(f"{m} {CALLS[m]['ok_calls']:,}" for m in MODELS)} (Table 0), so every reported metric uses all {n_sh} tokens ({p(n_sh/n_full)} of the design) with no exclusions. gemini-3.1-flash-lite was dropped after 363/1,878 calls because of its free-tier daily cap; its cached data are not reported anywhere.
 
 **Free-tier models only.** The project had a $0 budget; the code refuses any non-free model. Results describe these four open-weight models through these providers on 13–15 November 2026, not frontier proprietary models.
 

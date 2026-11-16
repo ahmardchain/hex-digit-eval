@@ -1,192 +1,192 @@
 {
  "gemma-4-31b": {
   "auroc_sc_minus_verbal": {
-   "value": 0.4296875,
-   "ci_lo": 0.32134486607142854,
+   "value": 0.4375,
+   "ci_lo": 0.3421052631578948,
    "ci_hi": 0.5,
-   "n": 20
+   "n": 22
   },
   "n_correct": 4,
-  "n_wrong": 16,
-  "n_wrong_conf_ge90": 16,
+  "n_wrong": 18,
+  "n_wrong_conf_ge90": 18,
   "policy_conf_ge90": {
-   "n_answered": 20,
-   "n_trusted": 20,
+   "n_answered": 22,
+   "n_trusted": 22,
    "coverage": 1.0,
-   "accuracy_trusted": 0.2,
-   "n_wrong": 16,
+   "accuracy_trusted": 0.18181818181818182,
+   "n_wrong": 18,
    "wrong_blocked_share": 0.0,
    "correct_kept_share": 1.0
   },
   "policy_sc_eq1": {
-   "n_answered": 20,
+   "n_answered": 22,
    "n_trusted": 4,
-   "coverage": 0.2,
+   "coverage": 0.18181818181818182,
    "accuracy_trusted": 0.75,
-   "n_wrong": 16,
-   "wrong_blocked_share": 0.9375,
+   "n_wrong": 18,
+   "wrong_blocked_share": 0.9444444444444444,
    "correct_kept_share": 0.75
   },
   "policy_sc_eq1_and_eip55_not_invalid": {
-   "n_answered": 20,
+   "n_answered": 22,
    "n_trusted": 4,
-   "coverage": 0.2,
+   "coverage": 0.18181818181818182,
    "accuracy_trusted": 0.75,
-   "n_wrong": 16,
-   "wrong_blocked_share": 0.9375,
+   "n_wrong": 18,
+   "wrong_blocked_share": 0.9444444444444444,
    "correct_kept_share": 0.75
   }
  },
  "gpt-oss-120b": {
   "auroc_sc_minus_verbal": {
-   "value": 0.053014553014553045,
-   "ci_lo": -0.023915234679123595,
-   "ci_hi": 0.14850009257735344,
-   "n": 63
+   "value": 0.03901515151515156,
+   "ci_lo": -0.033265835990247496,
+   "ci_hi": 0.11919796275153405,
+   "n": 74
   },
-  "n_correct": 26,
-  "n_wrong": 37,
-  "n_wrong_conf_ge90": 26,
+  "n_correct": 30,
+  "n_wrong": 44,
+  "n_wrong_conf_ge90": 32,
   "policy_conf_ge90": {
-   "n_answered": 63,
-   "n_trusted": 52,
-   "coverage": 0.8253968253968254,
-   "accuracy_trusted": 0.5,
-   "n_wrong": 37,
-   "wrong_blocked_share": 0.2972972972972973,
+   "n_answered": 74,
+   "n_trusted": 62,
+   "coverage": 0.8378378378378378,
+   "accuracy_trusted": 0.4838709677419355,
+   "n_wrong": 44,
+   "wrong_blocked_share": 0.2727272727272727,
    "correct_kept_share": 1.0
   },
   "policy_sc_eq1": {
-   "n_answered": 63,
-   "n_trusted": 12,
-   "coverage": 0.19047619047619047,
-   "accuracy_trusted": 0.9166666666666666,
-   "n_wrong": 37,
-   "wrong_blocked_share": 0.972972972972973,
-   "correct_kept_share": 0.4230769230769231
+   "n_answered": 74,
+   "n_trusted": 16,
+   "coverage": 0.21621621621621623,
+   "accuracy_trusted": 0.875,
+   "n_wrong": 44,
+   "wrong_blocked_share": 0.9545454545454546,
+   "correct_kept_share": 0.4666666666666667
   },
   "policy_sc_eq1_and_eip55_not_invalid": {
-   "n_answered": 63,
-   "n_trusted": 10,
-   "coverage": 0.15873015873015872,
-   "accuracy_trusted": 0.9,
-   "n_wrong": 37,
-   "wrong_blocked_share": 0.972972972972973,
-   "correct_kept_share": 0.34615384615384615
+   "n_answered": 74,
+   "n_trusted": 14,
+   "coverage": 0.1891891891891892,
+   "accuracy_trusted": 0.8571428571428571,
+   "n_wrong": 44,
+   "wrong_blocked_share": 0.9545454545454546,
+   "correct_kept_share": 0.4
   }
  },
  "gpt-oss-20b": {
   "auroc_sc_minus_verbal": {
-   "value": -0.021390374331550666,
-   "ci_lo": -0.14370723864258356,
-   "ci_hi": 0.07591683201058205,
-   "n": 96
+   "value": -0.004507628294035948,
+   "ci_lo": -0.11255248564072096,
+   "ci_hi": 0.0758135496668826,
+   "n": 117
   },
-  "n_correct": 11,
-  "n_wrong": 85,
-  "n_wrong_conf_ge90": 64,
+  "n_correct": 14,
+  "n_wrong": 103,
+  "n_wrong_conf_ge90": 77,
   "policy_conf_ge90": {
-   "n_answered": 96,
-   "n_trusted": 75,
-   "coverage": 0.78125,
-   "accuracy_trusted": 0.14666666666666667,
-   "n_wrong": 85,
-   "wrong_blocked_share": 0.24705882352941178,
+   "n_answered": 117,
+   "n_trusted": 91,
+   "coverage": 0.7777777777777778,
+   "accuracy_trusted": 0.15384615384615385,
+   "n_wrong": 103,
+   "wrong_blocked_share": 0.2524271844660194,
    "correct_kept_share": 1.0
   },
   "policy_sc_eq1": {
-   "n_answered": 96,
+   "n_answered": 117,
    "n_trusted": 5,
-   "coverage": 0.052083333333333336,
+   "coverage": 0.042735042735042736,
    "accuracy_trusted": 1.0,
-   "n_wrong": 85,
+   "n_wrong": 103,
    "wrong_blocked_share": 1.0,
-   "correct_kept_share": 0.45454545454545453
+   "correct_kept_share": 0.35714285714285715
   },
   "policy_sc_eq1_and_eip55_not_invalid": {
-   "n_answered": 96,
+   "n_answered": 117,
    "n_trusted": 5,
-   "coverage": 0.052083333333333336,
+   "coverage": 0.042735042735042736,
    "accuracy_trusted": 1.0,
-   "n_wrong": 85,
+   "n_wrong": 103,
    "wrong_blocked_share": 1.0,
-   "correct_kept_share": 0.45454545454545453
+   "correct_kept_share": 0.35714285714285715
   }
  },
  "qwen3.8-27b": {
   "auroc_sc_minus_verbal": {
-   "value": 0.3717054263565891,
-   "ci_lo": 0.3089887640449438,
-   "ci_hi": 0.4257826160767336,
-   "n": 101
+   "value": 0.36150770988006864,
+   "ci_lo": 0.3030287887440942,
+   "ci_hi": 0.41230733207093845,
+   "n": 120
   },
-  "n_correct": 15,
-  "n_wrong": 86,
-  "n_wrong_conf_ge90": 79,
+  "n_correct": 17,
+  "n_wrong": 103,
+  "n_wrong_conf_ge90": 94,
   "policy_conf_ge90": {
-   "n_answered": 101,
-   "n_trusted": 94,
-   "coverage": 0.9306930693069307,
-   "accuracy_trusted": 0.1595744680851064,
-   "n_wrong": 86,
-   "wrong_blocked_share": 0.08139534883720931,
+   "n_answered": 120,
+   "n_trusted": 111,
+   "coverage": 0.925,
+   "accuracy_trusted": 0.15315315315315314,
+   "n_wrong": 103,
+   "wrong_blocked_share": 0.08737864077669903,
    "correct_kept_share": 1.0
   },
   "policy_sc_eq1": {
-   "n_answered": 101,
+   "n_answered": 120,
    "n_trusted": 10,
-   "coverage": 0.09900990099009901,
+   "coverage": 0.08333333333333333,
    "accuracy_trusted": 0.7,
-   "n_wrong": 86,
-   "wrong_blocked_share": 0.9651162790697675,
-   "correct_kept_share": 0.4666666666666667
+   "n_wrong": 103,
+   "wrong_blocked_share": 0.970873786407767,
+   "correct_kept_share": 0.4117647058823529
   },
   "policy_sc_eq1_and_eip55_not_invalid": {
-   "n_answered": 101,
+   "n_answered": 120,
    "n_trusted": 10,
-   "coverage": 0.09900990099009901,
+   "coverage": 0.08333333333333333,
    "accuracy_trusted": 0.7,
-   "n_wrong": 86,
-   "wrong_blocked_share": 0.9651162790697675,
-   "correct_kept_share": 0.4666666666666667
+   "n_wrong": 103,
+   "wrong_blocked_share": 0.970873786407767,
+   "correct_kept_share": 0.4117647058823529
   }
  },
  "ALL": {
   "auroc_sc_minus_verbal": {
-   "value": 0.22947225765306123,
-   "ci_lo": 0.1750260941425201,
-   "ci_hi": 0.28998718811154606,
-   "n": 280
+   "value": 0.2181113662456945,
+   "ci_lo": 0.17215067485500463,
+   "ci_hi": 0.2713077177046282,
+   "n": 333
   },
-  "n_correct": 56,
-  "n_wrong": 224,
-  "n_wrong_conf_ge90": 185,
+  "n_correct": 65,
+  "n_wrong": 268,
+  "n_wrong_conf_ge90": 221,
   "policy_conf_ge90": {
-   "n_answered": 280,
-   "n_trusted": 241,
-   "coverage": 0.8607142857142858,
-   "accuracy_trusted": 0.23236514522821577,
-   "n_wrong": 224,
-   "wrong_blocked_share": 0.17410714285714285,
+   "n_answered": 333,
+   "n_trusted": 286,
+   "coverage": 0.8588588588588588,
+   "accuracy_trusted": 0.22727272727272727,
+   "n_wrong": 268,
+   "wrong_blocked_share": 0.17537313432835822,
    "correct_kept_share": 1.0
   },
   "policy_sc_eq1": {
-   "n_answered": 280,
-   "n_trusted": 31,
-   "coverage": 0.11071428571428571,
-   "accuracy_trusted": 0.8387096774193549,
-   "n_wrong": 224,
-   "wrong_blocked_share": 0.9776785714285714,
-   "correct_kept_share": 0.4642857142857143
+   "n_answered": 333,
+   "n_trusted": 35,
+   "coverage": 0.10510510510510511,
+   "accuracy_trusted": 0.8285714285714286,
+   "n_wrong": 268,
+   "wrong_blocked_share": 0.9776119402985075,
+   "correct_kept_share": 0.4461538461538462
   },
   "policy_sc_eq1_and_eip55_not_invalid": {
-   "n_answered": 280,
-   "n_trusted": 29,
-   "coverage": 0.10357142857142858,
-   "accuracy_trusted": 0.8275862068965517,
-   "n_wrong": 224,
-   "wrong_blocked_share": 0.9776785714285714,
-   "correct_kept_share": 0.42857142857142855
+   "n_answered": 333,
+   "n_trusted": 33,
+   "coverage": 0.0990990990990991,
+   "accuracy_trusted": 0.8181818181818182,
+   "n_wrong": 268,
+   "wrong_blocked_share": 0.9776119402985075,
+   "correct_kept_share": 0.4153846153846154
   }
  }
 }

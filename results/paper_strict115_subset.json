@@ -9,30 +9,26 @@
   "gemini-3.1-flash-lite": "dropped 15 Nov 2026: free-tier cap of 500 requests/day made the full 1,878-call design impossible before the deadline (363/1,878 done); cached data kept, not reported"
  },
  "n_items_full_design": 313,
- "priority_prefix_K": 118,
- "n_shared_items": 115,
- "excluded_in_prefix_failed_calls": [
-  "bas-0263",
-  "bas-0265",
-  "eth-0079"
- ],
+ "priority_prefix_K": 313,
+ "n_shared_items": 313,
+ "excluded_in_prefix_failed_calls": [],
  "frontier_per_model": {
-  "gemma-4-31b": 118,
+  "gemma-4-31b": 313,
   "gpt-oss-120b": 313,
-  "gpt-oss-20b": 284,
+  "gpt-oss-20b": 313,
   "qwen3.8-27b": 313
  },
  "complete_items_per_model": {
-  "gemma-4-31b": 281,
+  "gemma-4-31b": 313,
   "gpt-oss-120b": 313,
-  "gpt-oss-20b": 284,
+  "gpt-oss-20b": 313,
   "qwen3.8-27b": 313
  },
  "shared_items_by_stratum": {
-  "rank1000plus": 38,
-  "rank100_1000": 37,
-  "base": 20,
-  "top100": 20
+  "rank100_1000": 100,
+  "rank1000plus": 100,
+  "base": 60,
+  "top100": 53
  },
  "full_items_by_stratum": {
   "rank100_1000": 100,
@@ -40,5 +36,5 @@
   "base": 60,
   "top100": 53
  },
- "is_full_design": false
+ "is_full_design": true
 }
